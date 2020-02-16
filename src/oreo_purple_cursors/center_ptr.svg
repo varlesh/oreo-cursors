@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="svg2" width="32" height="32" version="1.1">
+ <defs id="defs6">
+  <filter id="filter1153" style="color-interpolation-filters:sRGB" width="1.226" height="1.167" x="-.11" y="-.08">
+   <feGaussianBlur id="feGaussianBlur1155" stdDeviation=".94"/>
+  </filter>
+  <filter id="filter962" style="color-interpolation-filters:sRGB" width="1.232" height="1.164" x="-.12" y="-.08">
+   <feGaussianBlur id="feGaussianBlur964" stdDeviation=".92"/>
+  </filter>
+ </defs>
+ <path id="path924" style="opacity:0.3;fill:#000000;fill-opacity:1;stroke:none;stroke-width:7.05873156;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter962)" d="M 25,19.857143 C 25,25.182746 20.746705,29.5 15.5,29.5 10.253295,29.5 6,25.182746 6,19.857143 6,15.999999 12.176542,2.5000003 15.5,2.5000003 c 3.323458,0 9.5,13.4999987 9.5,17.3571427 z"/>
+ <path id="path817" style="opacity:1;fill:#7e57c2;fill-opacity:1;stroke:none;stroke-width:7.05873156;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 25,18.357143 C 25,23.682746 20.746705,28 15.5,28 10.253295,28 6,23.682746 6,18.357143 6,14.499999 12.176542,1.0000003 15.5,1.0000003 c 3.323458,0 9.5,13.4999987 9.5,17.3571427 z"/>
+</svg>
