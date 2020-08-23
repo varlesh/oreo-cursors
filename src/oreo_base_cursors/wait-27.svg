@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="svg2" width="32" height="32" version="1.1">
+ <defs id="defs6">
+  <filter id="filter1153" style="color-interpolation-filters:sRGB" width="1.226" height="1.167" x="-.11" y="-.08">
+   <feGaussianBlur id="feGaussianBlur1155" stdDeviation=".94"/>
+  </filter>
+  <filter id="filter891" style="color-interpolation-filters:sRGB" width="1.192" height="1.192" x="-.1" y="-.1">
+   <feGaussianBlur id="feGaussianBlur893" stdDeviation=".96"/>
+  </filter>
+ </defs>
+ <circle id="circle849" style="opacity:0.3;fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.83710194;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter891)" cx="16" cy="17.5" r="12"/>
+ <circle id="path817" style="opacity:1;fill:#4e81ed;fill-opacity:1;stroke:none;stroke-width:4.83710194;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" cx="16" cy="16" r="12"/>
+ <path id="path825" style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="rotate(120)" d="m 5.8564068,-28.856407 a 7,7 0 0 1 7.0000002,7 7,7 0 0 1 -7.0000001,7"/>
+</svg>
