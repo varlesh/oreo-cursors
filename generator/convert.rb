@@ -23,6 +23,8 @@ hex = (?0..?9).to_a + (?a..?f).to_a << ?#
 
 if File.readable?(CONFIG_FILE)
 	IO.readlines(CONFIG_FILE).each_with_index do |x, i|
+		next if x.start_with?(?#) || x.strip.empty?
+
 		name, colour = x.split(?=).then { |y| [y[0].to_s.strip, y[1].to_s.strip] }
 
 		# Make sure colour name is not 0 characters long or too long
@@ -49,7 +51,6 @@ if File.readable?(CONFIG_FILE)
 
 		colours.merge!(name => colour)
 	end
-
 else
 	puts "Unable to read #{CONFIG_FILE}"
 end
