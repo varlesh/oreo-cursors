@@ -43,5 +43,6 @@ spark_green = #4E9A06
 spark_purple = #912BFF
 ```
 
-4. Run convert.rb
-This will convert your colours and map it to the cursors.
+4. Run convert.rb This will convert your colours and map it to the cursors.
+
+5. Go to the manual install section and start building the cursor.
