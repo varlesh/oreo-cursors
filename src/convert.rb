@@ -1,11 +1,14 @@
 #!/usr/bin/ruby -w
 # Frozen_String_Literal: true
+require 'fileutils'
 
 REPLACE = "#4E81ED".upcase.freeze
 BASE = File.join(__dir__, 'oreo_base_cursors')
 CONFIG_FILE = 'colours.conf'
 
 ### Code ###
+
+puts "index.theme not found under #{BASE}" unless Dir.children(BASE).include?('index.theme')
 
 colours = {}
 hex = (?0..?9).to_a + (?a..?f).to_a << ?#
@@ -56,9 +59,12 @@ colours.each do |x, y|
 
 	Dir.glob("#{BASE}/*.svg").each do |z|
 		if File.file?(z)
+			dest_file = File.join(dirname, File.basename(z))
 			data = IO.read(z)
 			r.each { |c| data.gsub!(c, y) }
-			IO.write(File.join(dirname, File.basename(z)), data)
+			IO.write(dest_file, data)
 		end
 	end
+
+	FileUtils.cp("#{BASE}/index.theme", dirname)
 end
