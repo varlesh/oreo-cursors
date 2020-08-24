@@ -4,6 +4,8 @@
 
 https://www.pling.com/p/1360254/
 
+The cursors can also be found under dist/ directory. Copy them to ~/.icons/ (only available to $USER) or /usr/share/icons/ (available to all users).
+
 ### Manual Install
 
 1. Install dependencies:
@@ -21,6 +23,7 @@ https://www.pling.com/p/1360254/
     make build
     sudo make install
     ```
+Note that on a i3 desktop processor, this might take 15 minutes to build all the 20 default cursors.
 
 3. Choose a theme in the Settings or in the Tweaks tool.
 
@@ -46,4 +49,4 @@ It's most likely have some contents, remove and insert lines according to your l
 
 4. Run `convert.rb`. This will convert your colours and map it to the cursors.
 
-5. Follow [Manual Install](https://github.com/Souravgoswami/oreo-cursors#manual-install) for installation.
+5. Follow [Manual Install](https://github.com/Souravgoswami/oreo-cursors#manual-install) for build and installation.
