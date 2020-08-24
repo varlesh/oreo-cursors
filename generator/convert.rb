@@ -1,9 +1,13 @@
 #!/usr/bin/env ruby
 # Frozen_String_Literal: true
-
+# Written by Sourav Goswami <souravgoswami@protonmail.com>
 
 BASE = File.join(__dir__, 'oreo_base_cursors')
+
+# Configuration file to read
 CONFIG_FILE = 'colours.conf'
+
+# Output directory
 OUT_DIR = File.join(File.expand_path('..', __dir__), 'src')
 
 # Content of index.theme inside each theme
@@ -100,9 +104,9 @@ colours.each do |x, y|
 		File.delete(file)
 	end
 
-	Dir.glob("#{BASE}/*.svg").each do |z|
+	Dir.glob("#{BASE}/*svg.oreo").each do |z|
 		if File.file?(z)
-			dest_file = File.join(dirname, File.basename(z))
+			dest_file = File.join(dirname, File.basename(z).split(?.).tap(&:pop).join(?.))
 			data = IO.read(z)
 
 			# Background Colour
