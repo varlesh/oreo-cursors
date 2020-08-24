@@ -11,7 +11,7 @@ INDEX_THEME = proc do |x|
 	<<~EOF
 		[Icon Theme]
 		Name=Oreo #{x.split(?_).map(&:capitalize).join(?\s)} Cursors
-		Comment=design by varlesh
+		Comment=design by varlesh | colour by #{Process.argv0}
 	EOF
 end
 
@@ -19,13 +19,14 @@ end
 puts "Error with the output directory. Does it exist? Is it writable?" unless File.writable?(OUT_DIR)
 
 colours = {}
-hex = (?0..?9).to_a + (?a..?f).to_a << ?#
 
 if File.readable?(CONFIG_FILE)
 	IO.readlines(CONFIG_FILE).each_with_index do |x, i|
 		next if x.start_with?(?#) || x.strip.empty?
-
 		name, colour = x.split(?=).then { |y| [y[0].to_s.strip, y[1].to_s.strip] }
+
+		# Colours are uppercased
+		colour.upcase!
 
 		# Make sure colour name is not 0 characters long or too long
 		if name.length.zero? || name.length > 512
@@ -34,7 +35,7 @@ if File.readable?(CONFIG_FILE)
 		end
 
 		# Make sure all the colour characters are valid hex
-		if !colour.chars.all? { |y| hex.include?(y.downcase) } || ![3, 6, 4, 7].include?(colour.length)
+		if !!colour[/[^a-fA-F0-9#]/] || ![3, 6].include?(colour.start_with?(?#) ? colour[1..-1].length : colour.length)
 			puts %Q(:: Line #{i.next}: "#{colour}" is not a valid colour)
 			next
 		end
@@ -47,7 +48,7 @@ if File.readable?(CONFIG_FILE)
 
 		# Print RGB in the terminal
 		r, g, b = colour[1..2].to_i(16), colour[3..4].to_i(16), colour[5..6].to_i(16)
-		puts "\e[38;2;#{r};#{g};#{b}m#{name}: #{colour}\e[0m"
+		puts "\e[1;38;2;#{r};#{g};#{b}m:: #{name}:\e[0m \e[38;2;#{r};#{g};#{b}m#{colour}\e[0m"
 
 		colours.merge!(name => colour)
 	end
@@ -65,6 +66,12 @@ r.uniq!
 colours.each do |x, y|
 	dirname = File.join(OUT_DIR, "oreo_#{x}_cursors")
 	Dir.mkdir(dirname) unless Dir.exist?(dirname)
+
+	# Delete files from dirname if it's not empty. The reason is to get rid of excess files.
+	Dir.children(dirname).each do |x|
+		file = File.join(dirname, x)
+		File.delete(file)
+	end
 
 	Dir.glob("#{BASE}/*.svg").each do |z|
 		if File.file?(z)
