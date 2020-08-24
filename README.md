@@ -37,13 +37,10 @@ Note that on a i3 desktop processor, this might take 15 minutes to build all the
 3. Create a file called colours.conf with colourname and colour value in hex, separated with =. For example:
 
 ```
-spark_dark = #222
-spark_red = #ff5555
-spark_blue = #55ffff
-spark_pink = #ff50a6
-spark_orange = #FFA726
-spark_green = #4E9A06
-spark_purple = #912BFF
+# Name = Colour LabelColour ShadowColour ShadowOpacity
+black_mod = #424242 #FFF #222 0.4
+
+# This is a comment
 ```
 It's most likely have some contents, remove and insert lines according to your likings.
 
