@@ -30,7 +30,7 @@ Note that on a i3 desktop processor, this might take 15 minutes to build all the
 ### Generate user defined colours:
 
 1. Install dependencies:
-    - ruby
+    - ruby (Minimum version 2.4 is required)
 
 2. cd into the generator/ directory.
 
