@@ -5,15 +5,15 @@
 
 # Written by Sourav Goswami <souravgoswami@protonmail.com>
 
+# Version should be floating point number
+VERSION = "0.1".freeze
+
 # Check Ruby version
 abort "Error! Atleast Ruby 2.4 is needed! You are running #{RUBY_VERSION} (#{RUBY_PLATFORM})" if RUBY_VERSION.split(?.).first(2).join.to_i < 24
 
 ### User definable ###
 ## Location of the base cursors
 BASE = File.join(__dir__, 'oreo_base_cursors')
-
-## Configuration file to read
-CONFIG_FILE = 'colours.conf'
 
 ## Output directory
 OUT_DIR = File.join(File.expand_path('..', __dir__), 'src')
@@ -35,46 +35,83 @@ Dir.define_singleton_method(:children) { |arg| Dir.entries(arg).drop(2) } unless
 
 puts "Error with the output directory. Does it exist? Is it writable?" unless File.writable?(OUT_DIR)
 
-colours = {}
+class String
+	def colourize
+		colours, line_length, temp = [], -1, ''
+		sample_colour, rev, repeat = rand(7), rand < 0.5, rand < 0.5
 
-def colourize(string)
-	colours, line_length, temp = [], -1, ''
-	sample_colour, rev, repeat = rand(7), rand < 0.5, rand < 0.5
+		each_line do |c|
+			n, i = c.length, -1
 
-	string.each_line do |c|
-		n, i = c.length, -1
+			if line_length != n
+				step, line_length = 255.0./(n), n
+				colours.clear
 
-		if line_length != n
-			step, line_length = 255.0./(n), n
-			colours.clear
-
-			while (i += 1) < n
-				colours.<<(
-					case sample_colour
-						when 0 then i.*(step).then { |l| [ l.*(2).to_i.clamp(0, 255), l.to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255) ] }
-						when 1 then i.*(step).then { |l| [ 255, 255.-(l).to_i.clamp(0, 255), l.to_i.clamp(0, 255) ] }
-						when 2 then i.*(step).then { |l| [ l.to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255), l.to_i.clamp(0, 255) ] }
-						when 3 then i.*(step).then { |l| [ l.*(2).to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255), 100.+(l / 2).to_i.clamp(0, 255) ] }
-						when 4 then i.*(step).then { |l| [ 30, 255.-(l / 2).to_i.clamp(0, 255), 110.+(l / 2).to_i.clamp(0, 255) ] }
-						when 5 then i.*(step).then { |l| [ 255.-(l * 2).to_i.clamp(0, 255), l.to_i.clamp(0, 255), 200 ] }
-						when 6 then i.*(step).then { |l| [ 50.+(255 - l).to_i.clamp(0, 255), 255.-(l / 2).to_i.clamp(0, 255), (l * 2).to_i.clamp(0, 255) ] }
-						else  i.*(step).then { |l| [ l.*(2).to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255), 100.+(l / 2).to_i.clamp(0, 255) ] }
-					end
-				)
+				while (i += 1) < n
+					colours.<<(
+						case sample_colour
+							when 0 then i.*(step).then { |l| [ l.*(2).to_i.clamp(0, 255), l.to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255) ] }
+							when 1 then i.*(step).then { |l| [ 255, 255.-(l).to_i.clamp(0, 255), l.to_i.clamp(0, 255) ] }
+							when 2 then i.*(step).then { |l| [ l.to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255), l.to_i.clamp(0, 255) ] }
+							when 3 then i.*(step).then { |l| [ l.*(2).to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255), 100.+(l / 2).to_i.clamp(0, 255) ] }
+							when 4 then i.*(step).then { |l| [ 30, 255.-(l / 2).to_i.clamp(0, 255), 110.+(l / 2).to_i.clamp(0, 255) ] }
+							when 5 then i.*(step).then { |l| [ 255.-(l * 2).to_i.clamp(0, 255), l.to_i.clamp(0, 255), 200 ] }
+							when 6 then i.*(step).then { |l| [ 50.+(255 - l).to_i.clamp(0, 255), 255.-(l / 2).to_i.clamp(0, 255), (l * 2).to_i.clamp(0, 255) ] }
+							else  i.*(step).then { |l| [ l.*(2).to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255), 100.+(l / 2).to_i.clamp(0, 255) ] }
+						end
+					)
+				end
 			end
+
+			i = -1
+			temp.concat "\e[38;2;#{colours[i][0]};#{colours[i][1]};#{colours[i][2]}m#{c[i]}" while (i += 1) < n
 		end
 
-		i = -1
-		temp.concat "\e[1;38;2;#{colours[i][0]};#{colours[i][1]};#{colours[i][2]}m#{c[i]}" while (i += 1) < n
+		STDOUT.print(temp, "\e[0m\n".freeze)
 	end
+end
 
-	STDOUT.print(temp, "\e[0m".freeze)
+## Grab arguments
 
+# Show help
+if ARGV.any? { |x| x[/\A\-(\-help|h)\Z/] }
+	<<~EOF.colourize
+		This program is used to generate oreo cursor colours.
+
+		Arguments:
+		--help | -h\t\tShow this help
+		--config= | -c=\t\tSpecify the configration file
+		\t\t\t[defaults to colours.conf]
+		--version | -v\t\tShow version
+	EOF
+
+	exit
+end
+
+# Grab the -v | --version option
+if ARGV.any? { |x| x[/\A\-(\-version|v)\Z/] }
+	"You are running #{Process.argv0} version #{VERSION}".colourize
+	exit
+end
+
+# Grab the configuration file from arguments, defaults to colours.conf
+config_file, cf = ARGV.select { |x| x[/\A\-(\-config|c)=.+\Z/] }[-1], nil
+cf = config_file.split(?=)[1] if config_file
+
+CONFIG_FILE = if cf && File.readable?(cf)
+	cf
+elsif !File.readable?(cf)
+	puts ":: #{cf} is not readable, using colours.conf"
+	sleep 1
+	'colours.conf'
+else
+	'colours.conf'
 end
 
 require 'io/console'
-colourize <<~EOF.lines.map { |x| '//' + ?\s * (STDOUT.winsize[1] / 2 - x.length / 2 - 3).clamp(0, Float::INFINITY) + x.chomp + ?\s * (STDOUT.winsize[1] / 2 - x.length / 2.0 - 3).to_i.clamp(0, Float::INFINITY) + '//' + ?\n}.join
-	#{?- * (STDOUT.winsize[1] - 20)}
+tw = STDOUT.winsize[1]
+<<~EOF.lines.map { |x| '//' + ?\s * (tw / 2.0 - x.length / 2 - 2).clamp(0, Float::INFINITY) + x.chomp + ?\s * (tw / 2 - x.length / 2.0 - 2).to_i.clamp(0, Float::INFINITY) + '//' + ?\n}.join.colourize
+	#{?- * (tw - 20)}
 	  .d88b.  d8888b. d88888b  .d88b.
 	 .8P  Y8. 88  `8D 88'     .8P  Y8.
 	 88    88 88oobY' 88ooooo 88    88
@@ -87,10 +124,11 @@ colourize <<~EOF.lines.map { |x| '//' + ?\s * (STDOUT.winsize[1] / 2 - x.length 
 	8P      88    88 88oobY' `8bo.   88    88 88oobY' `8bo.
 	 8b      88    88 88`8b     `Y8b. 88    88 88`8b     `Y8b.
 	 Y8b  d8 88b  d88 88 `88. db   8D `8b  d8' 88 `88. db   8D
-	  `Y88P' ~Y8888P' 88   YD `8888Y'  `Y88P'  88   YD `8888Y'
-	#{?- * (STDOUT.winsize[1] - 20)}
+	  `Y88P' ~Y8888P' 88   YD `8888Y'  Y88P'  88   YD `8888Y'
+	#{?- * (tw - 20)}
 EOF
 
+colours = {}
 def colour_validation!(colour, i, silent = false)
 		# Colours are uppercased
 		colour.upcase!
@@ -113,6 +151,8 @@ def colour_validation!(colour, i, silent = false)
 end
 
 if File.readable?(CONFIG_FILE)
+	puts "Reading configuration file #{CONFIG_FILE}\n\n"
+
 	IO.readlines(CONFIG_FILE).each_with_index do |x, i|
 		next if x.start_with?(?#) || x.strip.empty?
 
@@ -149,7 +189,7 @@ if File.readable?(CONFIG_FILE)
 		lr, lg, lb = label[1..2].to_i(16), label[3..4].to_i(16), label[5..6].to_i(16)
 		sr, sg, sb = shadow[1..2].to_i(16), shadow[3..4].to_i(16), shadow[5..6].to_i(16)
 
-		puts "\e[1;38;2;#{r};#{g};#{b}m:: #{name}:"\
+		puts ":: Detected: \e[1;38;2;#{r};#{g};#{b}m#{name}:"\
 			"\e[0m \e[38;2;#{r};#{g};#{b}m#{colour}"\
 			"\e[0m | \e[38;2;#{lr};#{lg};#{lb}mLabel"\
 			"\e[0m | \e[38;2;#{sr};#{sg};#{sb}mShadow(#{shadow_opacity})"\
@@ -204,4 +244,11 @@ colours.each do |x, y|
 
 	# Write to index file
 	IO.write(File.join(dirname, 'index.theme'.freeze), INDEX_THEME.call(x))
+
+	c = y[0]
+	r, g, b = c[1..2].to_i(16), c[3..4].to_i(16), c[5..6].to_i(16)
+
+	puts ":: Created \e[38;2;#{r};#{g};#{b}m#{dirname}/\e[0m"
 end
+
+puts ":: Successfully created src/ files"
