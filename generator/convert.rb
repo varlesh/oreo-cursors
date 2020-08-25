@@ -1,20 +1,24 @@
 #!/usr/bin/env ruby
+# Enconding: UTF-8
 # Frozen_String_Literal: true
+# Warn_Indent: true
+
 # Written by Sourav Goswami <souravgoswami@protonmail.com>
 
-## Check Ruby version
+# Check Ruby version
 abort "Error! Atleast Ruby 2.4 is needed! You are running #{RUBY_VERSION} (#{RUBY_PLATFORM})" if RUBY_VERSION.split(?.).first(2).join.to_i < 24
 
-# Location of the base cursors
+### User definable ###
+## Location of the base cursors
 BASE = File.join(__dir__, 'oreo_base_cursors')
 
-# Configuration file to read
+## Configuration file to read
 CONFIG_FILE = 'colours.conf'
 
-# Output directory
+## Output directory
 OUT_DIR = File.join(File.expand_path('..', __dir__), 'src')
 
-# Content of index.theme inside each theme
+## Content of index.theme inside each theme
 INDEX_THEME = proc do |x|
 	<<~EOF
 		[Icon Theme]
@@ -24,8 +28,10 @@ INDEX_THEME = proc do |x|
 end
 
 ### Code ###
-Kernel.class_exec { define_method(:then) { |&block| block === self } }
-Dir.define_singleton_method(:children) { |arg| Dir.entries(arg).drop(2) }
+
+# Monkey Patches for Ruby 2.4 to 2.5
+Kernel.class_exec { define_method(:then) { |&block| block === self } } unless Kernel.respond_to?(:then)
+Dir.define_singleton_method(:children) { |arg| Dir.entries(arg).drop(2) } unless Dir.respond_to?(:children)
 
 puts "Error with the output directory. Does it exist? Is it writable?" unless File.writable?(OUT_DIR)
 
@@ -84,7 +90,7 @@ if File.readable?(CONFIG_FILE)
 
 		next unless colour_validation!(colour, i)
 
-		# Print RGB in the terminal
+		# Print RGB in the terminal, respective to the config file
 		r, g, b = colour[1..2].to_i(16), colour[3..4].to_i(16), colour[5..6].to_i(16)
 		lr, lg, lb = label[1..2].to_i(16), label[3..4].to_i(16), label[5..6].to_i(16)
 		sr, sg, sb = shadow[1..2].to_i(16), shadow[3..4].to_i(16), shadow[5..6].to_i(16)
@@ -102,32 +108,42 @@ else
 end
 
 colours.each do |x, y|
+	# Make the directory name is the colour name mentioned in the config file
 	dirname = File.join(OUT_DIR, "oreo_#{x}_cursors")
+
+	# Make the directory mentioned in the config file
+	# We will store svg files here, mapped to colours
 	Dir.mkdir(dirname) unless Dir.exist?(dirname)
 
 	# Delete files from dirname if it's not empty. The reason is to get rid of excess files.
 	Dir.children(dirname).each do |x|
 		file = File.join(dirname, x)
-		File.delete(file)
+		File.delete(file) if File.file?(file)
 	end
 
+	# Iterate over each base files and add colours to them,
+	# and write them to the directories fetched from configuration file
 	Dir.glob("#{BASE}/*svg.oreo").each do |z|
 		if File.file?(z)
+			# Destination file has the name.svg converted from name.svg.oreo
 			dest_file = File.join(dirname, File.basename(z).split(?.).tap(&:pop).join(?.))
+
+			# Read the base file
 			data = IO.read(z)
 
-			# Background Colour
+			# Change Background Colour
 			data.gsub!(/\{\{ background \}\}/i, y[0])
 
-			# Label Colour
+			# Change Label Colour
 			data.gsub!(/\{\{ label \}\}/i, y[1])
 
-			# Shadow Colour
+			# Change Shadow Colour
 			data.gsub!(/\{\{ shadow \}\}/i, y[2])
 
-			# Shadow Opacity
+			# Change Shadow Opacity
 			data.gsub!(/\{\{ shadow\s*opacity \}\}/i, y[3])
 
+			# Write converted data to destination file
 			IO.write(dest_file, data)
 		end
 	end
