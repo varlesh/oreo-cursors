@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # Enconding: UTF-8
-# Frozen_String_Literal: true
+# Frozen_String_Literal: false
 # Warn_Indent: true
 
 # Written by Sourav Goswami <souravgoswami@protonmail.com>
@@ -37,6 +37,60 @@ puts "Error with the output directory. Does it exist? Is it writable?" unless Fi
 
 colours = {}
 
+def colourize(string)
+	colours, line_length, temp = [], -1, ''
+	sample_colour, rev, repeat = rand(7), rand < 0.5, rand < 0.5
+
+	string.each_line do |c|
+		n, i = c.length, -1
+
+		if line_length != n
+			step, line_length = 255.0./(n), n
+			colours.clear
+
+			while (i += 1) < n
+				colours.<<(
+					case sample_colour
+						when 0 then i.*(step).then { |l| [ l.*(2).to_i.clamp(0, 255), l.to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255) ] }
+						when 1 then i.*(step).then { |l| [ 255, 255.-(l).to_i.clamp(0, 255), l.to_i.clamp(0, 255) ] }
+						when 2 then i.*(step).then { |l| [ l.to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255), l.to_i.clamp(0, 255) ] }
+						when 3 then i.*(step).then { |l| [ l.*(2).to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255), 100.+(l / 2).to_i.clamp(0, 255) ] }
+						when 4 then i.*(step).then { |l| [ 30, 255.-(l / 2).to_i.clamp(0, 255), 110.+(l / 2).to_i.clamp(0, 255) ] }
+						when 5 then i.*(step).then { |l| [ 255.-(l * 2).to_i.clamp(0, 255), l.to_i.clamp(0, 255), 200 ] }
+						when 6 then i.*(step).then { |l| [ 50.+(255 - l).to_i.clamp(0, 255), 255.-(l / 2).to_i.clamp(0, 255), (l * 2).to_i.clamp(0, 255) ] }
+						else  i.*(step).then { |l| [ l.*(2).to_i.clamp(0, 255), 255.-(l).to_i.clamp(0, 255), 100.+(l / 2).to_i.clamp(0, 255) ] }
+					end
+				)
+			end
+		end
+
+		i = -1
+		temp.concat "\e[1;38;2;#{colours[i][0]};#{colours[i][1]};#{colours[i][2]}m#{c[i]}" while (i += 1) < n
+	end
+
+	STDOUT.print(temp, "\e[0m".freeze)
+
+end
+
+require 'io/console'
+colourize <<~EOF.lines.map { |x| '//' + ?\s * (STDOUT.winsize[1] / 2 - x.length / 2 - 3).clamp(0, Float::INFINITY) + x.chomp + ?\s * (STDOUT.winsize[1] / 2 - x.length / 2.0 - 3).to_i.clamp(0, Float::INFINITY) + '//' + ?\n}.join
+	#{?- * (STDOUT.winsize[1] - 20)}
+	  .d88b.  d8888b. d88888b  .d88b.
+	 .8P  Y8. 88  `8D 88'     .8P  Y8.
+	 88    88 88oobY' 88ooooo 88    88
+	 88    88 88`8b   88~~~~~ 88    88
+	 `8b  d8' 88 `88. 88.     `8b  d8'
+	  `Y88P'  88   YD Y88888P  `Y88P'
+
+	  .o88b. db    db d8888b. .d8888.  .d88b.  d8888b. .d8888.
+	 d8P  Y8 88    88 88  `8D 88'  YP .8P  Y8. 88  `8D 88'  YP
+	8P      88    88 88oobY' `8bo.   88    88 88oobY' `8bo.
+	 8b      88    88 88`8b     `Y8b. 88    88 88`8b     `Y8b.
+	 Y8b  d8 88b  d88 88 `88. db   8D `8b  d8' 88 `88. db   8D
+	  `Y88P' ~Y8888P' 88   YD `8888Y'  `Y88P'  88   YD `8888Y'
+	#{?- * (STDOUT.winsize[1] - 20)}
+EOF
+
 def colour_validation!(colour, i, silent = false)
 		# Colours are uppercased
 		colour.upcase!
@@ -63,13 +117,13 @@ if File.readable?(CONFIG_FILE)
 		next if x.start_with?(?#) || x.strip.empty?
 
 		# Label colour
-		label = +'#fff'
+		label = '#fff'
 		l = +x.split[3].to_s
 		label = l if colour_validation!(l, i, true)
 		colour_validation!(label, 0)
 
 		# Shadow colour
-		shadow = +'#000'
+		shadow = '#000'
 		s = +x.split[4].to_s
 		shadow = s if colour_validation!(s, i, true)
 		colour_validation!(shadow, 0)
@@ -126,7 +180,7 @@ colours.each do |x, y|
 	Dir.glob("#{BASE}/*svg.oreo").each do |z|
 		if File.file?(z)
 			# Destination file has the name.svg converted from name.svg.oreo
-			dest_file = File.join(dirname, File.basename(z).split(?.).tap(&:pop).join(?.))
+			dest_file = File.join(dirname, File.basename(z).split(?..freeze).tap(&:pop).join(?..freeze))
 
 			# Read the base file
 			data = IO.read(z)
@@ -149,5 +203,5 @@ colours.each do |x, y|
 	end
 
 	# Write to index file
-	IO.write(File.join(dirname, 'index.theme'), INDEX_THEME.call(x))
+	IO.write(File.join(dirname, 'index.theme'.freeze), INDEX_THEME.call(x))
 end
