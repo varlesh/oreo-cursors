@@ -100,7 +100,7 @@ cf = config_file.split(?=)[1] if config_file
 
 CONFIG_FILE = if cf && File.readable?(cf)
 	cf
-elsif !File.readable?(cf)
+elsif cf && !File.readable?(cf)
 	puts ":: #{cf} is not readable, using colours.conf"
 	sleep 1
 	'colours.conf'
