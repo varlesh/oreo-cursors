@@ -2,6 +2,10 @@
 # Frozen_String_Literal: true
 # Written by Sourav Goswami <souravgoswami@protonmail.com>
 
+## Check Ruby version
+abort "Error! Atleast Ruby 2.4 is needed! You are running #{RUBY_VERSION} (#{RUBY_PLATFORM})" if RUBY_VERSION.split(?.).first(2).join.to_i < 24
+
+# Location of the base cursors
 BASE = File.join(__dir__, 'oreo_base_cursors')
 
 # Configuration file to read
@@ -20,6 +24,9 @@ INDEX_THEME = proc do |x|
 end
 
 ### Code ###
+Kernel.class_exec { define_method(:then) { |&block| block === self } }
+Dir.define_singleton_method(:children) { |arg| Dir.entries(arg).drop(2) }
+
 puts "Error with the output directory. Does it exist? Is it writable?" unless File.writable?(OUT_DIR)
 
 colours = {}
