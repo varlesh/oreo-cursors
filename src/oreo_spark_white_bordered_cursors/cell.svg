@@ -72,31 +72,31 @@
      fill="#FFFFFF"
      opacity="1"
      id="circle98"
-     style="stroke:#333333;stroke-opacity:1.5;stroke-width:1" />
+     style="stroke:#222222;stroke-opacity:1;stroke-width:1.5" />
   <circle
      cx="16"
      cy="11"
      r="2"
-     fill="#111111"
+     fill="#222222"
      id="circle100" />
   <circle
      cx="16"
      cy="21"
      r="2"
-     fill="#111111"
+     fill="#222222"
      id="circle102" />
   <circle
      cx="16"
      cy="-21"
      r="2"
      transform="rotate(90)"
-     fill="#111111"
+     fill="#222222"
      id="circle104" />
   <circle
      cx="16"
      cy="-11"
      r="2"
      transform="rotate(90)"
-     fill="#111111"
+     fill="#222222"
      id="circle106" />
 </svg>

@@ -72,9 +72,9 @@
      fill="#FFFFFF"
      opacity="1"
      id="circle45"
-     style="stroke:#333333;stroke-opacity:1.5;stroke-width:1" />
+     style="stroke:#222222;stroke-opacity:1;stroke-width:1.5" />
   <path
      d="M10 22l.7143-5L15 21.2857z"
-     fill="#111111"
+     fill="#222222"
      id="path47" />
 </svg>

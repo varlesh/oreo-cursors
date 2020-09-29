@@ -65,11 +65,11 @@
      fill="#FFFFFF"
      opacity="1"
      id="path9"
-     style="stroke:#333333;stroke-opacity:1.5;stroke-width:1" />
+     style="stroke:#222222;stroke-opacity:1;stroke-width:1.5" />
   <path
      d="M11.3015 19.7101a5 5 0 01.6027-4.578A5 5 0 0116 13"
      fill="none"
-     stroke="#111111"
+     stroke="#222222"
      stroke-width="2"
      stroke-linecap="round"
      stroke-linejoin="round"

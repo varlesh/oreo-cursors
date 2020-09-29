@@ -69,16 +69,16 @@
      fill="#FFFFFF"
      opacity="1"
      id="circle9"
-     style="stroke:#333333;stroke-opacity:1.5;stroke-width:1" />
+     style="stroke:#222222;stroke-opacity:1;stroke-width:1.5" />
   <path
      d="M22 10l-5 .7143L21.2857 15zM10 22l.7143-5L15 21.2857z"
-     fill="#111111"
+     fill="#222222"
      id="path11" />
   <circle
      cx="-16"
      cy="16"
      r="2"
      transform="scale(-1 1)"
-     fill="#111111"
+     fill="#222222"
      id="circle13" />
 </svg>

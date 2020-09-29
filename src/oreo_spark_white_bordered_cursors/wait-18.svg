@@ -69,11 +69,11 @@
      fill="#FFFFFF"
      opacity="1"
      id="circle9"
-     style="stroke:#333333;stroke-opacity:1.5;stroke-width:1" />
+     style="stroke:#222222;stroke-opacity:1;stroke-width:1.5" />
   <path
      d="M16 9a7 7 0 016.9734 6.39 7 7 0 01-5.7579 7.5037"
      fill="none"
-     stroke="#111111"
+     stroke="#222222"
      stroke-width="2"
      stroke-linecap="round"
      stroke-linejoin="round"
