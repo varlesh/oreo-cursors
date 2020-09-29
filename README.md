@@ -12,7 +12,7 @@ The cursors can also be found under dist/ directory. Copy them to ~/.icons/ (onl
 
     - git
     - make
-    - ruby
+    - ruby >= 2.4
     - inkscape
     - xcursorgen
 
@@ -24,7 +24,8 @@ The cursors can also be found under dist/ directory. Copy them to ~/.icons/ (onl
     make build
     sudo make install
     ```
-Note that on a i3 desktop processor, this might take 15 minutes to build all the 20 default cursors.
+
+Note that on an i3 desktop processor, this might take 15 minutes to build 20 cursors.
 
 3. Choose a theme in the Settings or in the Tweaks tool.
 
