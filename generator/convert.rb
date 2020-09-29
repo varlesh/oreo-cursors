@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
-# Enconding: UTF-8
+# Encoding: UTF-8
 # Frozen_String_Literal: false
-# Warn_Indent: true
+# Warn_Indent: false
 
 # Written by Sourav Goswami <souravgoswami@protonmail.com>
 
@@ -51,6 +51,8 @@ BEGIN {
 	# Add rainbow colours to strings!
 	class String
 		def colourize(line_break = true)
+			return print(self) unless STDOUT.tty?
+
 			colours, line_length, temp = [], -1, ''
 			sample_colour, rev = rand(7), rand < 0.5
 
@@ -81,8 +83,8 @@ BEGIN {
 
 				i = -1
 				temp.concat "\e[38;2;#{colours[i][0]};#{colours[i][1]};#{colours[i][2]}m#{c[i]}" while (i += 1) < n
-			end
 
+			end
 			STDOUT.print(temp, "\e[0m".freeze)
 			STDOUT.puts if line_break
 		end
@@ -91,7 +93,7 @@ BEGIN {
 
 # Get terminal width using stty
 require 'io/console'
-tw = STDOUT.winsize[1]
+tw = STDOUT.winsize[1] rescue 64
 
 # Art generated from https://fsymbols.com/generators/carty/
 # Used utf-8, editors messes up with the font and makes development harder.
@@ -273,10 +275,10 @@ if File.readable?(CONFIG_FILE)
 		end
 
 		# Print RGB in the terminal, respective to the config file
-		r, g, b = colour.chars.drop(1).each_slice(2).map { |x| x.join.to_i(16) }
-		lr, lg, lb = label.chars.drop(1).each_slice(2).map { |x| x.join.to_i(16) }
-		sr, sg, sb = shadow.chars.drop(1).each_slice(2).map { |x| x.join.to_i(16) }
-		str, stg, stb = stroke.chars.drop(1).each_slice(2).map { |x| x.join.to_i(16) }
+		r, g, b = colour.chars.drop(1).each_slice(2).map { |_x| _x.join.to_i(16) }
+		lr, lg, lb = label.chars.drop(1).each_slice(2).map { |_x| _x.join.to_i(16) }
+		sr, sg, sb = shadow.chars.drop(1).each_slice(2).map { |_x| _x.join.to_i(16) }
+		str, stg, stb = stroke.chars.drop(1).each_slice(2).map { |_x| _x.join.to_i(16) }
 
 		puts ":: Detected: #{name} \e[1;38;2;#{r};#{g};#{b}m\u2b22 #{colour}"\
 			"\e[0m | Label \e[38;2;#{lr};#{lg};#{lb}m\u2b22 #{label}"\
