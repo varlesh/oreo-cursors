@@ -45,6 +45,6 @@ black_mod = #424242 #FFF #222 0.4
 It's most likely to have some contents in the colours.conf, remove and insert lines according to your likings.
 Do note that if you don't specify the LabelColour, ShadowColour, ShadowOpacity, they will be default to #FFF, #000, 0.3 respectively.
 
-4. Run `convert.rb`. This will convert your colours and map it to the cursors.
+4. Run `ruby convert.rb`. This will convert your colours and map it to the cursors.
 
 5. Follow [Manual Install](https://github.com/Souravgoswami/oreo-cursors#manual-install) for build and installation.
