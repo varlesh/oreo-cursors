@@ -24,15 +24,6 @@ BASE = File.join(__dir__, 'oreo_base_cursors')
 ## Output directory
 OUT_DIR = File.join(File.expand_path('..', __dir__), 'src')
 
-## Content of index.theme inside each theme
-INDEX_THEME = proc do |x|
-	<<~EOF
-		[Icon Theme]
-		Name=Oreo #{x.split(?_).map(&:capitalize).join(?\s)} Cursors
-		Comment=design by varlesh | colour by #{File.basename(Process.argv0)}
-	EOF
-end
-
 ### Code ###
 # Execute these stuff in the beginning even before initializing constants
 
@@ -90,6 +81,39 @@ BEGIN {
 		end
 	end
 }
+
+# Create an author file whenever it's empty or missing
+# The benefit is to add flexibility where users don't have to edit this source file
+INDEX_THEME_RB_FILE = File.join(__dir__, 'index.theme.rb').freeze
+
+while true
+	if File.readable?(INDEX_THEME_RB_FILE) && !File.empty?(INDEX_THEME_RB_FILE)
+		## Content of index.theme inside each theme
+		require_relative INDEX_THEME_RB_FILE
+		break
+	else
+		IO.write(
+			INDEX_THEME_RB_FILE, <<~'NEWINDEXTHEMEFILECONTENT'
+				# This file is included in the generator.conf
+				# This will help you define your author name mapped with cursor name.
+				# Each theme calls this proc below if the file is not found, it's created.
+				# This is a necessity to run the application.
+				# Creating this file also adds more flexibility.
+
+				# Here x is the filename of the cursor
+				INDEX_THEME = proc do |x|
+					<<~EOF
+						[Icon Theme]
+						Name=Oreo #{x.split(?_).map(&:capitalize).join(?\s)} Cursors
+						Comment=design by varlesh #{"| colour by #{File.basename(Process.argv0)}" if x.downcase.include?('spark') }
+					EOF
+				end
+			NEWINDEXTHEMEFILECONTENT
+		)
+
+		redo
+	end
+end
 
 # Get terminal width using stty
 require 'io/console'
