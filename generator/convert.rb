@@ -15,7 +15,7 @@ VERSION = "0.2".freeze
 STDOUT.sync = STDERR.sync = true
 
 # Check Ruby version
-abort "Error! Atleast Ruby 2.4 is needed! You are running #{RUBY_VERSION} (#{RUBY_PLATFORM})" if RUBY_VERSION.split(?.).first(2).join.to_i < 24
+abort "Error! At least Ruby 2.4 is needed! You are running #{RUBY_VERSION} (#{RUBY_PLATFORM})" if RUBY_VERSION.split(?.).first(2).join.to_i < 24
 
 ### User definable ###
 ## Location of the base cursors
@@ -29,7 +29,7 @@ INDEX_THEME = proc do |x|
 	<<~EOF
 		[Icon Theme]
 		Name=Oreo #{x.split(?_).map(&:capitalize).join(?\s)} Cursors
-		Comment=design by varlesh | colour by #{Process.argv0}
+		Comment=design by varlesh | colour by #{File.basename(Process.argv0)}
 	EOF
 end
 
