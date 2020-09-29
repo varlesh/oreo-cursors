@@ -69,7 +69,7 @@
      fill="#000000"
      opacity="1"
      id="circle9"
-     style="stroke:#FFFFFF;stroke-opacity:1;stroke-width:1.5" />
+     style="stroke:#FFFFFF;stroke-opacity:1;stroke-width:1" />
   <path
      d="M10 10l5 .7143L10.7143 15zM22 22l-.7143-5L17 21.2857z"
      fill="#FFFFFF"

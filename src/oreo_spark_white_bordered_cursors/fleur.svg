@@ -72,7 +72,7 @@
      fill="#FFFFFF"
      opacity="1"
      id="circle9"
-     style="stroke:#222222;stroke-opacity:1;stroke-width:1.5" />
+     style="stroke:#222222;stroke-opacity:1;stroke-width:1" />
   <path
      d="M16 7l3 4h-6zM16 25l3-4h-6zM25 16l-4 3v-6zM7 16l4 3v-6z"
      fill="#222222"
