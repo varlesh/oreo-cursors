@@ -278,7 +278,12 @@ if File.readable?(CONFIG_FILE)
 		# Get cursor name and colour
 		name, colour = x.split(?=).then { |y| [+y[0].to_s.strip, +y[1].to_s.split[0].to_s.strip] }
 		colour = +(attrs[:colour] || attrs[:color]).to_s
-		colour = x.split(?=)[1].to_s.strip if colour.empty?
+
+		# Read the first colour and verify it if the "color" attribute is empty
+		if colour.empty?
+			_clr = x.split(?=)[1].to_s.strip
+			colour = _clr if colour_validation!(_clr, 0, true)
+		end
 
 		# Make sure colour name is not 0 characters long or too long
 		if name.length.zero? || name.length > 512
@@ -304,11 +309,11 @@ if File.readable?(CONFIG_FILE)
 		sr, sg, sb = shadow.chars.drop(1).each_slice(2).map { |_x| _x.join.to_i(16) }
 		str, stg, stb = stroke.chars.drop(1).each_slice(2).map { |_x| _x.join.to_i(16) }
 
-		puts ":: Detected: #{name} \e[1;38;2;#{r};#{g};#{b}m\u2b22 #{colour}"\
+		puts "\u2B53 Detected  \u2023 #{name} \e[1;38;2;#{r};#{g};#{b}m\u2b22 #{colour}"\
 			"\e[0m | Label \e[38;2;#{lr};#{lg};#{lb}m\u2b22 #{label}"\
-			"\e[0m | Shadow(#{shadow_opacity}) \e[38;2;#{sr};#{sg};#{sb}m\u2b22 #{shadow}"\
-			"\e[0m | Stroke(#{stroke_opacity}) \e[38;2;#{str};#{stg};#{stb}m\u2b22 #{stroke}"\
-			"\e[0m"
+			"\n\t   \e[0m \u2023 Shadow: opacity: #{shadow_opacity} | colour: \e[38;2;#{sr};#{sg};#{sb}m\u2b22 #{shadow}"\
+			"\n\t   \e[0m \u2023 Stroke: opacity: #{stroke_opacity} | width: #{stroke_width}) | colour: \e[38;2;#{str};#{stg};#{stb}m\u2b22 #{stroke}"\
+			"\e[0m\n\n"
 
 		# Generate a hash out of arrays where keys correspond to the colour/directory name
 		colours.merge!(name => [colour, label, shadow, shadow_opacity, stroke, stroke_opacity, stroke_width])
