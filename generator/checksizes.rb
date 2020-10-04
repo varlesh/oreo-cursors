@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# Encoding: UTF-8
 # Script reads cursors.conf and retuns the sizes for cursors
 
 # Mention default values if empty

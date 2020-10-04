@@ -1,3 +1,6 @@
+#!/usr/bin/ruby -w
+# Encoding: UTF-8
+
 # This file is included in the generator.conf
 # This will help you define your author name mapped with cursor name.
 # Each theme calls this proc below if the file is not found, it's created.

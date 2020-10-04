@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# Encoding: UTF-8
+
 # Monkey patch for Ruby 2.3+
 Kernel.class_exec { define_method(:then) { |&block| block === self } }
 
