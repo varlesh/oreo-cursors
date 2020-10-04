@@ -62,4 +62,4 @@ sizes = 24, 32, 40, 48, 64
 
 ⚠️ More sizes also means more disk space .
 
-3. Follow [Manual Install](https://github.com/Souravgoswami/oreo-cursors#manual-install) for build and installation.
+2. Follow [Manual Install](https://github.com/Souravgoswami/oreo-cursors#manual-install) for build and installation.
