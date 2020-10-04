@@ -24,6 +24,12 @@ BASE = File.join(__dir__, 'oreo_base_cursors')
 ## Output directory
 OUT_DIR = File.join(File.expand_path('..', __dir__), 'src')
 
+Dir.mkdir(OUT_DIR) unless File.exist?(OUT_DIR)
+
+CONFIG_FILE = File.join(File.expand_path('..', __dir__), 'cursors.conf')
+
+abort("Uh oh #{CONFIG_FILE} is not readable!") unless File.readable?(CONFIG_FILE)
+
 ### Code ###
 # Execute these stuff in the beginning even before initializing constants
 
@@ -155,7 +161,7 @@ if ARGV.any? { |x| x[/\A\-(\-help|h)\Z/] }
 		\u2B23 Arguments:
 			1. --help | -h\t\tShow this help
 			2. --config= | -c=\t\tSpecify the configration file
-			\t\t\t\t[defaults to colours.conf]
+			\t\t\t\t[defaults to #{CONFIG_FILE}]
 			3. --version | -v\t\tShow version
 
 		\u2B23 Config File:
@@ -198,9 +204,9 @@ CONFIG_FILE = if cf && File.readable?(cf)
 elsif cf && !File.readable?(cf)
 	puts ":: #{cf} is not readable, using colours.conf"
 	sleep 1
-	File.join(__dir__, 'colours.conf')
+	CONFIG_FILE
 else
-	File.join(__dir__, 'colours.conf')
+	CONFIG_FILE
 end
 
 # Define colour hash, which contains arrays of colour attributes for each theme
@@ -236,6 +242,9 @@ if File.readable?(CONFIG_FILE)
 
 	IO.readlines(CONFIG_FILE).each_with_index do |x, i|
 		next if x.start_with?(?#) || x.strip.empty?
+
+		# Skip the size check, that's not a colour!
+		next if x[/\A\s*sizes\s*=.*\Z/]
 
 		# Configuration file to Ruby hash
 		attrs = x.split(?=)[1..-1].join(?=).split(?,).map do |_sa|
@@ -312,7 +321,7 @@ if File.readable?(CONFIG_FILE)
 		puts "\u2B53 Detected  \u2023 #{name} \e[1;38;2;#{r};#{g};#{b}m\u2b22 #{colour}"\
 			"\e[0m | Label \e[38;2;#{lr};#{lg};#{lb}m\u2b22 #{label}"\
 			"\n\t   \e[0m \u2023 Shadow: opacity: #{shadow_opacity} | colour: \e[38;2;#{sr};#{sg};#{sb}m\u2b22 #{shadow}"\
-			"\n\t   \e[0m \u2023 Stroke: opacity: #{stroke_opacity} | width: #{stroke_width}) | colour: \e[38;2;#{str};#{stg};#{stb}m\u2b22 #{stroke}"\
+			"\n\t   \e[0m \u2023 Stroke: opacity: #{stroke_opacity} | width: #{stroke_width} | colour: \e[38;2;#{str};#{stg};#{stb}m\u2b22 #{stroke}"\
 			"\e[0m\n\n"
 
 		# Generate a hash out of arrays where keys correspond to the colour/directory name

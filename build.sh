@@ -12,14 +12,16 @@ convert_to_png() {
 	local src_dir="$1"
 	local out_dir="${2:-.}"
 	local file size bitmap_file png_mtime svg_mtime
+	local sizes=`command ruby -W0 generator/checksizes.rb`
 
 	[ -d "$src_dir" ] || return 1
 	[ -d "$out_dir" ] || mkdir -p "$out_dir"
 
+
 	# shellcheck disable=SC2016
 	for file in "$src_dir"/*.svg; do
 		[ -f "$file" ] || continue
-		for size in 32 64; do
+		for size in $sizes; do
 			bitmap_file="${out_dir%/}/$(basename "$file" .svg)_${size}.png"
 
 			svg_mtime="$(stat -c '%Y' "$file")"
