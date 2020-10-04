@@ -29,23 +29,24 @@ Note that on an i3 desktop processor, this might take 15 minutes to build 20 cur
 
 3. Choose a theme in the Settings or in the Tweaks tool.
 
-### Generate user defined colours:
+### Generate user defined colours and sizes:
 
-1. Install dependencies:
-    - ruby (Minimum version 2.4 is required)
-
-2. cd into the generator/ directory.
-
-3. Create a file called colours.conf with colourname and colour value in hex, separated with =. For example:
+1. Edit the file cursors.conf with colour name and colour value in hex:
 
 ```
 black_mod = color: #424242, label: #FFF, shadow: #222, shadow-opacity: 0.4, stroke: #fff, stroke-opacity: 1, stroke-width: 1
 
 # Lines with # are skipped.
 
-Also follow the first Intro section from generator/colours.conf for more details.
+Also read the comments in cursors.conf for more details.
 ```
 
-(`make build` automatically runs the convert.rb file)
+To add custom size, use:
 
-4. Follow [Manual Install](https://github.com/Souravgoswami/oreo-cursors#manual-install) for build and installation.
+```
+sizes = 24, 32, 40, 48, 64
+```
+
+(`make build` automatically runs all the necessary files)
+
+3. Follow [Manual Install](https://github.com/Souravgoswami/oreo-cursors#manual-install) for build and installation.
