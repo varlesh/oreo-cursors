@@ -4,11 +4,11 @@
 
 https://www.pling.com/p/1360254/
 
-
 ### Install build version 📦
 
-
 The cursors can also be found under dist/ directory. Copy them to ~/.icons/ (only available to $USER) or /usr/share/icons/ (available to all users).
+
+Alternatively run `make install` as root to copy them to /usr/share/icons.
 
 ### Manual Install 📦
 
