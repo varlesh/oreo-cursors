@@ -4,6 +4,8 @@ CURSOR_THEMES ?= $(patsubst %/index.theme,%,$(wildcard ./dist/*/index.theme))
 all: build
 
 build:
+	ruby generator/configs.rb
+	ruby generator/convert.rb
 	bash build.sh
 
 clean:

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg18"
+   sodipodi:docname="dnd-no-drop.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata22">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     id="namedview20"
+     showgrid="false"
+     inkscape:zoom="26.03125"
+     inkscape:cx="9.3733493"
+     inkscape:cy="16"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg18" />
+  <defs
+     id="defs8">
+    <filter
+       id="b"
+       width="1.192"
+       height="1.192"
+       x="-.1"
+       y="-.1"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         stdDeviation=".962"
+         id="feGaussianBlur2" />
+    </filter>
+    <filter
+       id="a"
+       width="1.197"
+       height="1.187"
+       x="-.1"
+       y="-.09"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         stdDeviation=".74"
+         id="feGaussianBlur5" />
+    </filter>
+  </defs>
+  <path
+     d="M19.4648 8.504c-.8747.054-1.6428.8356-1.6777 1.7089L17.627 12c-.0377.4183-.4297.4276-.4551-.0371l-.0782-1.7344c-.0378-.9477-.9531-1.7689-1.9023-1.709-.9376.0568-1.738.9617-1.6777 1.8965l.1152 1.955c.0294.4213-.4493.2711-.4922-.0526l-.5449-1.291c-.4095-.8556-1.0627-1.5884-1.955-1.5235-.982.088-1.7718 1.1133-1.6036 2.082l1.166 4.4297c.006.151-.037.9297-.037.9297l-.8204-1.6738c-1.1981.8999-2.9394 2.0518-2.1367 4.5976.5658 1.7945 1.9082 3.7924 3.2695 5.125.0075.0075.016.014.0234.0215.1415.1377.279.261.42.3828.1373.12.2789.2347.4238.3457.095.0712.19.151.2832.213 1.381.9696 3.0595 1.5429 4.875 1.5429 4.6944 0 8.5-3.8056 8.5-8.5-.0387-2.2-.0332-4.0697-.0332-6.2617-.0075-1.1305-.7874-2.3141-1.918-2.2305-.7647.0437-1.3471.6312-1.5215 1.375l-.209 1.1582c-.0906.3268-.3028.1954-.2695-.0742l.3184-2.5684c.0654-1.0091-.8904-1.9597-1.9024-1.8945z"
+     opacity="0.3"
+     fill="#000000"
+     filter="url(#a)"
+     id="path10" />
+  <path
+     d="M19.4648 7.004c-.8747.054-1.6428.8356-1.6777 1.7089L17.627 10.5c-.0377.4183-.4297.4276-.4551-.0371l-.0782-1.7344c-.0378-.9477-.9531-1.7689-1.9023-1.709-.9376.0568-1.738.9617-1.6777 1.8965l.1152 1.955c.0294.4213-.4493.2711-.4922-.0526l-.5449-1.291c-.4095-.8556-1.0627-1.5884-1.955-1.5235-.982.088-1.7718 1.1133-1.6036 2.082l1.166 4.4297c.006.151-.037.9297-.037.9297l-.8204-1.6738c-1.1981.8999-2.9394 2.0518-2.1367 4.5976.5658 1.7945 1.9082 3.7924 3.2695 5.125.0075.0075.016.014.0234.0215.1415.1377.279.261.42.3828.1373.12.2789.2347.4238.3457.095.0712.19.151.2832.213C13.006 25.4266 14.6845 26 16.5 26c4.6944 0 8.5-3.8056 8.5-8.5-.0387-2.2-.0332-4.0697-.0332-6.2617-.0075-1.1305-.7874-2.3141-1.918-2.2305-.7647.0437-1.3471.6312-1.5215 1.375l-.209 1.1582c-.0906.3268-.3028.1954-.2695-.0742l.3184-2.5684c.0654-1.0091-.8904-1.9597-1.9024-1.8945z"
+     fill="#c6c6c6"
+     id="path12"
+     style="stroke:#FFFFFF;stroke-opacity:0;stroke-width:0" />
+  <path
+     d="M25.961 5.4805a2.0002 2.0002 0 00-1.375.6055l-20 20a2.0002 2.0002 0 102.828 2.828l20-20a2.0002 2.0002 0 00-1.453-3.4335z"
+     opacity=".3"
+     filter="url(#b)"
+     id="path14" />
+  <path
+     d="M26 6L6 26"
+     fill="none"
+     stroke="#f44336"
+     stroke-width="4"
+     stroke-linecap="round"
+     id="path16" />
+</svg>
