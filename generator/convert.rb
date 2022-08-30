@@ -129,7 +129,7 @@ else
 end
 
 require 'io/console'
-tw = STDOUT.winsize[1]
+tw = STDOUT.isatty ? STDOUT.winsize[1] : 80
 
 # Art generated from https://fsymbols.com/generators/carty/
 # Used utf-8, editors messes up with the font and makes development harder.
