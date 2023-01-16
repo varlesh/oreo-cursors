@@ -14,6 +14,8 @@ The cursors can also be found under dist/ directory. Copy them to ~/.icons/ (onl
     - make
     - inkscape
     - xcursorgen
+    - ruby
+    - boost-libs/libboost-dev
 
 2. Run the following commands as normal user:
 
