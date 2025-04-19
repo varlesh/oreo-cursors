@@ -6,6 +6,7 @@
 
 set -e
 
+DBUS_SESSION_BUS_ADDRESS=""
 INKSCAPE_VERSION=$(inkscape --version 2>/dev/null | awk '/Inkscape[ ]/ {print $2; exit}')
 
 convert_to_png() {
